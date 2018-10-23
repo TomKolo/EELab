@@ -1,0 +1,34 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="band" value="#{viewBand.band}" required="true"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:panelGrid  styleClass="table table-striped" columns="2">
+            <h:outputLabel value="Name:" for="name"/>
+            <h:outputText id="name" value="#{viewBand.band.name}"/>
+
+            <h:outputLabel value="Active:" for="active"/>
+            <h:outputText id="active" value="#{viewBand.band.active}" />
+
+            <h:outputLabel value="Date of creation:" for="dateOfCreation"/>
+            <h:outputText id="dateOfCreation" value="#{viewBand.band.dateOfCreation}">
+                <f:convertDateTime pattern="yyyy-MM-dd"/>
+            </h:outputText>
+
+            <h:outputLabel value="Members:" for="members"/>
+            <h:dataTable value="#{viewBand.band.members}" var="member">
+                <h:column>
+                    <h:outputText  id="members"  value="#{member.name} #{member.surname}"/>
+                </h:column>
+            </h:dataTable>
+
+        </h:panelGrid>
+
+        <h:button styleClass="btn btn-default" value="Back" outcome="list_bands.xhtml"/>
+    </ui:define>
+</ui:composition>

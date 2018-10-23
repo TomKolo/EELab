@@ -1,0 +1,35 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="album" value="#{editAlbum.album}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid styleClass="table table-striped" columns="3">
+                <h:outputLabel value="Title:" for="name"/>
+                <h:inputText styleClass="form-control" id="name" value="#{editAlbum.album.name}"/>
+                <h:message for="name"/>
+
+                <h:outputLabel value="Date of release (RRRR-MM-DD):" for="dateOfRelease"/>
+                <h:inputText styleClass="form-control" id="dateOfRelease" value="#{editAlbum.album.dateOfRelease}">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+                <h:message for="dateOfRelease"/>
+
+                <h:outputLabel value="Copies sold:" for="soldCopies"/>
+                <h:inputText styleClass="form-control" id="soldCopies" value="#{editAlbum.album.soldCopies}"/>
+                <h:message for="soldCopies"/>
+            </h:panelGrid>
+
+
+            <h:commandButton styleClass="btn btn-primary" value="Save"
+                             action="#{editAlbum.saveAlbum()}"/>
+            <h:button styleClass="btn btn-default ml-1" value="Back" outcome="list_albums.xhtml"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

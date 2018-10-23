@@ -1,0 +1,81 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <ui:define name="content">
+        <h:dataTable styleClass="table table-striped table-hover"
+                     value="#{listBands.bands}" var="band">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{band.id}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Name</f:facet>
+                <h:outputText value="#{band.name}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Active</f:facet>
+                <h:outputText id="active" value="#{band.active}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Date of creation</f:facet>
+                <h:outputText value="#{band.dateOfCreation}">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:outputText>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Type of music</f:facet>
+                <h:outputText value="#{band.type.toString()}"/>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Members</f:facet>
+                <h:dataTable value="#{band.members}" var="member">
+                    <h:column>
+                        <h:outputText value="#{member.name} #{member.surname}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Albums</f:facet>
+                <h:dataTable value="#{band.albums}" var="album">
+                    <h:column>
+                        <h:outputText value="#{album.name}"/>
+                    </h:column>
+                </h:dataTable>
+            </h:column>
+
+
+            <h:column>
+                <f:facet name="header">Show</f:facet>
+                <h:button styleClass="btn btn-default" value="Show" outcome="view_band.xhtml">
+                    <f:param name="band" value="#{band.id}"/>
+                </h:button>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Edit</f:facet>
+                <h:button styleClass="btn btn-default" value="Edit" outcome="edit_band.xhtml">
+                    <f:param name="band" value="#{band.id}"/>
+                </h:button>
+            </h:column>
+
+            <h:column>
+                <f:facet name="header">Remove</f:facet>
+                <h:form>
+                    <h:commandButton styleClass="btn btn-danger" value="Remove"
+                                     action="#{listBands.removeBand(band)}"/>
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:button styleClass="btn btn-primary" value="New band" outcome="edit_band.xhtml"/>
+
+    </ui:define>
+</ui:composition>

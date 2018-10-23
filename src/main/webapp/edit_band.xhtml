@@ -1,0 +1,58 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/main.xhtml">
+    <f:metadata>
+        <f:viewParam name="band" value="#{editBand.band}"/>
+    </f:metadata>
+
+    <ui:define name="content">
+        <h:form>
+            <h:panelGrid styleClass="table table-striped" columns="3">
+                <h:outputLabel value="Name:" for="name"/>
+                <h:inputText styleClass="form-control" id="name" value="#{editBand.band.name}"/>
+                <h:message for="name"/>
+
+                <h:outputLabel value="Active:" for="active"/>
+                <h:selectBooleanCheckbox id="active" disabled="false" value="#{editBand.band.active}" />
+                <h:message for="active"/>
+
+                <h:outputLabel value="Date of creation (RRRR-MM-DD):" for="dateOfCreation"/>
+                <h:inputText styleClass="form-control" id="dateOfCreation" value="#{editBand.band.dateOfCreation}">
+                    <f:convertDateTime pattern="yyyy-MM-dd"/>
+                </h:inputText>
+                <h:message for="dateOfCreation"/>
+
+                <h:outputLabel value="Type of music:" for="type"/>
+                <h:selectOneListbox styleClass="form-control" id="type"
+                                     value="#{editBand.band.type}">
+                    <f:selectItems value="#{editBand.availableTypes}" var="type" itemValue="#{type}"
+                                   itemLabel="#{type.toString()}"/>
+                </h:selectOneListbox>
+                <h:message for="type"/>
+
+                <h:outputLabel value="Members:" for="members"/>
+                <h:selectManyListbox styleClass="form-control" id="members"
+                                     value="#{editBand.band.members}">
+                    <f:selectItems value="#{editBand.availableMembers}" var="member" itemValue="#{member}"
+                                   itemLabel="#{member.name} #{member.surname}"/>
+                </h:selectManyListbox>
+                <h:message for="members"/>
+
+                <h:outputLabel value="Albums:" for="albums"/>
+                <h:selectManyListbox styleClass="form-control" id="albums"
+                                     value="#{editBand.band.albums}">
+                    <f:selectItems value="#{editBand.availableAlbums}" var="album" itemValue="#{album}"
+                                   itemLabel="#{album.name}"/>
+                </h:selectManyListbox>
+                <h:message for="albums"/>
+            </h:panelGrid>
+
+            <h:commandButton styleClass="btn btn-primary" value="Save"
+                             action="#{editBand.saveBand()}"/>
+            <h:button styleClass="btn btn-default ml-1" value="Back" outcome="list_bands.xhtml"/>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
